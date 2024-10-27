@@ -1,5 +1,6 @@
 "use client";
 
+import Badge from "@/components/ui/badge";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 
@@ -27,7 +28,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           {product.brand && (
             <div className="text-muted-foreground">{product.brand}</div>
           )}
+          {product.ribbon && <Badge>{product.ribbon}</Badge>}
         </div>
+        {product.description && <div dangerouslySetInnerHTML={{__html: product.description}} />}
       </div>
     </div>
   );
