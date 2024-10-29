@@ -8,8 +8,6 @@ import ShoppingCartButton from "./ShoppingCartButton";
 export default async function Navbar() {
   const cart = await getCart(getWixServerClient());
 
-  
-
   return (
     <header className="bg-background shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 p-5">
