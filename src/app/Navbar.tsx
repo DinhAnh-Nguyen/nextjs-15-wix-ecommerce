@@ -4,9 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import ShoppingCartButton from "./ShoppingCartButton";
+import UserButton from "@/components/UserButton";
+import { getLoggedInMember } from "@/wix-api/members";
 
 export default async function Navbar() {
-  const cart = await getCart(getWixServerClient());
+  const wixClient = getWixServerClient();
+
+  const [cart, loggedInMember] = await Promise.all([
+    getCart(wixClient),
+    getLoggedInMember(wixClient),
+  ]);
 
   return (
     <header className="bg-background shadow-sm">
@@ -15,6 +22,8 @@ export default async function Navbar() {
           <Image src={logo} alt="Flow Shop logo" width={40} height={40} />
           <span className="text-xl font-bold">Flow Shop</span>
         </Link>
+        <div className="flex items-center justify-center gap-5"></div>
+        <UserButton loggedInMember={loggedInMember} className="my-0" />
         <ShoppingCartButton initialData={cart} />
       </div>
     </header>
