@@ -13,8 +13,10 @@ interface PageProps {
   /* Adding product name to the page name, helping with SEO */
 }
 export async function generateMetadata({
-  params: { slug },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { slug } = params;
+
   const product = await getProductBySlug(getWixServerClient(), slug);
 
   if (!product) notFound();
