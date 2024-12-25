@@ -5,20 +5,14 @@ import { Metadata } from "next";
 import { delay } from "@/lib/utils";
 import { getWixServerClient } from "@/lib/wix-client.server";
 
-interface PageParams {
-  slug: string;
-}
+type PageParams = { slug: string };
 
-interface PageProps {
-  params: PageParams;
-}
-
-// Generate metadata for SEO
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
   const { slug } = params;
-
   const product = await getProductBySlug(getWixServerClient(), slug);
 
   if (!product) notFound();
@@ -43,8 +37,7 @@ export async function generateMetadata({
   };
 }
 
-// Main Page function
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: PageParams }) {
   const { slug } = params;
 
   await delay(1000);
