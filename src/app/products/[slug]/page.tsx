@@ -9,9 +9,7 @@ type PageParams = { slug: string };
 
 export async function generateMetadata({
   params,
-}: {
-  params: PageParams;
-}): Promise<Metadata> {
+}: Awaited<{ params: PageParams }>) {
   const { slug } = params;
   const product = await getProductBySlug(getWixServerClient(), slug);
 
@@ -37,7 +35,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: PageParams }) {
+export default async function Page({ params }: Awaited<{ params: PageParams }>) {
   const { slug } = params;
 
   await delay(1000);
