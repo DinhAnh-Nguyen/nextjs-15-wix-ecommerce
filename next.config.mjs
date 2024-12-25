@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    staleTimes: {
-      dynamic: 30,
-    },
-  },
+  experimental: {},
 };
 
 export default nextConfig;
