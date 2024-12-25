@@ -39,7 +39,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { slug } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { slug } = params;
+
   await delay(1000);
   const product = await getProductBySlug(getWixServerClient(), slug);
 
