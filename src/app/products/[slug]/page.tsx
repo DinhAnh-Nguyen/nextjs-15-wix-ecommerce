@@ -5,13 +5,15 @@ import { Metadata } from "next";
 import { delay } from "@/lib/utils";
 import { getWixServerClient } from "@/lib/wix-client.server";
 
-interface PageProps {
-  params: { slug: string };
+interface PageParams {
+  slug: string;
 }
 
-{
-  /* Adding product name to the page name, helping with SEO */
+interface PageProps {
+  params: PageParams;
 }
+
+// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -41,16 +43,18 @@ export async function generateMetadata({
   };
 }
 
+// Main Page function
 export default async function Page({ params }: PageProps) {
   const { slug } = params;
 
   await delay(1000);
+
   const product = await getProductBySlug(getWixServerClient(), slug);
 
   if (!product?._id) notFound();
 
   return (
-    <main className="nax-w-7xl mx-auto space-y-10 px-5 py-10">
+    <main className="mx-auto max-w-7xl space-y-10 px-5 py-10">
       <ProductDetails product={product} />
     </main>
   );
